@@ -1,5 +1,5 @@
 # 3D brain plot
-Create three-dimensional plot of scores on the brain surface.<br/>
+Create three-dimensional plots of scores on the brain surface.<br/>
 
 ![Demo](./brain_plot_examples.png)<br/>
 3D brain plots of the left hemisphere of a neonatal brain with random scores. The figure shows the brain of a neonatal subject of the developing Human Connectome Project [DHCP](http://www.developingconnectome.org/) [[1]](#1) [[2]](#2).

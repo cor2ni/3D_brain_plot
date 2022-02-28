@@ -27,7 +27,7 @@ def map_brain(file_name, min_val, max_val, colors, png_name):
     mapper.SetLookupTable(lut)
     mapper.SetScalarRange(0, lut.GetNumberOfColors())
 
-    # Create the actor
+    # Actor
     actor = vtk.vtkActor()
     actor.SetMapper(mapper)
 
@@ -43,21 +43,21 @@ def render_brain(actor, lut, png_name):
         scalarBar.SetNumberOfLabels(5)
         scalarBar.SetMaximumNumberOfColors(200)
 
-    # Create the Renderer
+    # Renderer
     renderer = vtk.vtkRenderer()
     renderer.AddActor(actor)
     if scalarbar:
         renderer.AddActor2D(scalarBar)
     renderer.SetBackground(0,0,0) #(0,0,0)=black   #(1,1,1)=white
 
-    # Create the RendererWindow
-    rendererwindow = vtk.vtkRenderWindow()
-    rendererwindow.AddRenderer(renderer)
-    rendererwindow.SetAlphaBitPlanes(1)  # for transparent background in the screenshots
+    # RenderWindow
+    renderwindow = vtk.vtkRenderWindow()
+    renderwindow.AddRenderer(renderer)
+    renderwindow.SetAlphaBitPlanes(1)  # for transparent background in the screenshots
 
     # Create the RendererWindowInteractor and show the vtk_file
     interactor = vtk.vtkRenderWindowInteractor()
-    interactor.SetRenderWindow(rendererwindow)
+    interactor.SetRenderWindow(renderwindow)
 
     ## To define the camera position
     # renderer.camera = vtk.vtkCamera()
@@ -67,12 +67,12 @@ def render_brain(actor, lut, png_name):
     # camera.SetPosition(50, 150, 150)
     # camera.SetRoll(-90)
 
-    rendererwindow.SetSize(1000,600)
-    rendererwindow.Render()
+    renderwindow.SetSize(1000,600)
+    renderwindow.Render()
 
-    # Screenshot with transparent background: 
+    # Get a screenshot with transparent background
     windowtoifilter = vtk.vtkWindowToImageFilter()
-    windowtoifilter.SetInput(rendererwindow)
+    windowtoifilter.SetInput(renderwindow)
     windowtoifilter.SetInputBufferTypeToRGBA()
     windowtoifilter.Update()
 
