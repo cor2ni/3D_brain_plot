@@ -3,7 +3,7 @@
 # This code takes a vtk file as input and generates a 3D model as output
 
 import vtk
-from lookuptable import get_lut_1, get_lut_2
+from lookuptable import get_lut_1, get_lut_2, get_lut_3
 
 # Plot the brain
 def map_brain(file_name, min_val, max_val, colors, png_name):
@@ -20,6 +20,8 @@ def map_brain(file_name, min_val, max_val, colors, png_name):
         colortransfer, lut = get_lut_1(min_val, max_val)
     elif colors=='redwhiteblue':
         colortransfer, lut = get_lut_2(min_val, max_val)
+    elif colors=='redwhite':
+        colortransfer, lut = get_lut_3(min_val, max_val)
 
     # Create the mapper
     mapper = vtk.vtkDataSetMapper()
@@ -109,6 +111,7 @@ max_val = 40
 ## Choose the colors you want to use for your plot. There are two colorscales available. Feel free to adjust them for your own colorsystem.
 colors='redyellowwhitegreenblue'
 #colors='redwhiteblue'
+#colors='redwhite'
 
 ## Set save_mode to True if you want to save an automatic screenshot of the figure. Set it to False if you want to see the image in the 3D interactor without saving.
 #save_mode = True

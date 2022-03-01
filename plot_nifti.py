@@ -4,7 +4,7 @@
 
 import SimpleITK as sitk
 import vtk
-from lookuptable import get_lut_1, get_lut_2
+from lookuptable import get_lut_1, get_lut_2, get_lut_3
 
 
 # Get vtk-file from nifti-image/numpy array
@@ -37,6 +37,8 @@ def map_brain_surface(data, intensity, voxelsize, min_val, max_val, colors):
         colortransfer, lut = get_lut_1(min_val, max_val)
     elif colors=='redwhiteblue':
         colortransfer, lut = get_lut_2(min_val, max_val)
+    elif colors=='redwhite':
+        colortransfer, lut = get_lut_3(min_val, max_val)
 
     contourFilter = vtk.vtkContourFilter()
     contourFilter.SetInputConnection(imageimport.GetOutputPort())
@@ -144,6 +146,7 @@ max_val = 40
 ## Choose the colors you want to use for your plot. There are two colorscales available. Feel free to adjust them for your own colorsystem.
 colors='redyellowwhitegreenblue'
 #colors='redwhiteblue'
+#colors='redwhite'
 
 ## Set save_mode to True if you want to save an automatic screenshot of the plot. Set it to False if you want to see the plot in the 3D interactor window without saving.
 #save_mode = True

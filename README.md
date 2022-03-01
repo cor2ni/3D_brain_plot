@@ -21,15 +21,15 @@ Based on this data file, there are different ways to gain a surface file (.vtk):
 
 ### 2. Model generation
 The code builds on the open source Visualization Toolkit [(VTK)](https://vtk.org/). Depending on which option you choose in step 1, there is one plotting code for each option:
-1. [plot_nifti.py](./plot_nifti.py) for plotting surfaces based on a nifti-file. The following requirements are needed: Python 3.8.10 and the python libraries colorsys, vtk, and SimpleITK.
-2. [plot_vtk.py](./plot_vtk.py) for plotting surfaces of a VTK-PolyData-File. The following requirements are needed: Python 3.8.10 and the python libraries colorsys and vtk.
+1. [plot_nifti.py](./plot_nifti.py) for plotting surfaces based on a nifti-file. The following requirements are needed: Python 3.8.10 and the python libraries vtk and SimpleITK ([requirements.txt](./requirements.txt)). Colorsys is part of the python standard library.
+2. [plot_vtk.py](./plot_vtk.py) for plotting surfaces of a VTK-PolyData-File. The following requirements are needed: Python 3.8.10 and the python library vtk.
 
 By default, an interactive 3D visualization starts and shows the generated model.
 
 These variables can be defined in the code:
 - By default, the colorbar will appear in the plot. This can be disabled.
 - The range of the colorbar which defines the colors for each value can be adapted by `min_val` and `max_val`. Limitations of the colorbar function are explained in the code.
-- There are two implementations for colorbars ([lookuptable.py](./lookuptable.py)). By default, the values are encoded from red to yellow to white to green to blue (1). The second option is from darkred to lightred to white to lightblue to darkblue (2). Feel free to adjust the colors like you want.
+- There are three implementations for colorbars ([lookuptable.py](./lookuptable.py)). By default, the values are encoded from red to yellow to white to green to blue (1). The second option is from darkred to lightred to white to lightblue to darkblue (2). The third option is from darkred to lightred to white (3). Feel free to adjust the colors like you want.
 ![Demo](./lookuptable.png)
 - The camera position can be specified by `camera.SetPosition` and `camera.SetRoll`. This part can be uncommented in the code.
 - By default, an interactive window shows the model. Optionally, an automatic screenshot of the plot can be saved in the [plots-folder](./plots/) if `save_mode` is set to `True`.
@@ -37,7 +37,7 @@ These variables can be defined in the code:
 ### Run an example
 To get an idea of the visualization, an example file is provided in the [masks-folder](./masks/). We can not publish whole brain scans because of data privacy. Instead, a nifti-file of a manual right and left neonatal claustrum mask of a subject of the developing Human Connectome Project [DHCP](http://www.developingconnectome.org/) [[1]](#1) [[2]](#2) is supplied with random exemplary scores. The claustrum is a small gray matter structure in the brain. The width of the claustrum in voxels is in the range of singel digits. Thereby, the model quality and smoothness can be assessed.<br/><br/>
 
-1. Install the requirements: The code runs with Python 3.8.10. These python libraries are used: colorsys, vtk, and SimpleITK for [plot_nifti.py](./plot_nifti.py).<br/>
+1. The code runs with Python 3.8.10. Install the requirements by `pip install -r requirements.txt`.
 2. Run [plot_nifti.py](./plot_nifti.py). An interactive window should open after a couple of seconds.<br/>
 ![Demo](./claustrum_model_nifti.png)<br/><br/>
 3. Alternatively, run [plot_vtk.py](./plot_vtk.py). Again, an interactive window should open after a couple of seconds.<br/>

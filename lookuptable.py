@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
-# Here is the code for two LookupTables
+# Here is the code for LookupTables
 
 import vtk
 import colorsys
 
 # LookupTable: dark red - orange - white - light green - dark blue
-# The input are the minimal and maximal values of the scalar range.
+# The input variables are the minimal and maximal values of the scalar range.
 def get_lut_1(min_val, max_val): #e.g. (0, 100)
     dif = max_val - min_val
     lut = vtk.vtkLookupTable()
@@ -51,7 +51,7 @@ def get_lut_1(min_val, max_val): #e.g. (0, 100)
 
     return colortransfer, lut
 
-#LookupTable: dark red - light red - white - light green - dark green
+# LookupTable: dark red - light red - white - light green - dark green
 def get_lut_2(min_val, max_val):
     dif = max_val - min_val
     lut = vtk.vtkLookupTable()
@@ -91,3 +91,31 @@ def get_lut_2(min_val, max_val):
         colortransfer.AddRGBPoint(i, r, g, b)
 
     return colortransfer, lut
+
+# LookupTable: dark red - light red - white
+def get_lut_3(min_val, max_val):
+    dif = max_val - min_val
+    lut = vtk.vtkLookupTable()
+    lut.SetNumberOfTableValues(max_val)
+    lut.SetTableRange(min_val, max_val)
+    lut.Build()
+    colortransfer = vtk.vtkColorTransferFunction()
+    minscalar = int(min_val + 0.05*dif)
+    maxscalar = int(max_val - 0.05*dif)
+    step = 1
+    for i in range(min_val, minscalar, step):
+        hmin=0 #red    #85/255 #green    #170/255 #blue
+        smin=1
+        r, g, b = colorsys.hls_to_rgb(h=hmin, s=smin, l=0.10)
+        colortransfer.AddRGBPoint(i, r, g, b)
+        lut.SetTableValue(i, r, g, b, 1)
+    for i in range(minscalar, maxscalar, step): 
+        l=(((i-minscalar)/(maxscalar-minscalar))*0.90)+0.10
+        r, g, b = colorsys.hls_to_rgb(h=hmin, s=smin, l=l)
+        lut.SetTableValue(i, r, g, b, 1)
+        colortransfer.AddRGBPoint(i, r, g, b)
+    for i in range(maxscalar, max_val, step):
+        lut.SetTableValue(i, 1, 1, 1, 1)
+        colortransfer.AddRGBPoint(i, 1, 1, 1)       
+
+    return colortransfer, lut    
